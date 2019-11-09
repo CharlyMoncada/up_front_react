@@ -9,6 +9,8 @@ import DialogContent from '@material-ui/core/DialogContent';
 import DialogContentText from '@material-ui/core/DialogContentText';
 import DialogTitle from '@material-ui/core/DialogTitle';
 
+import { BASEURL } from './Constants';
+
 const formItemLayout = {
     labelCol: { span: 4 },
     wrapperCol: { span: 8 },
@@ -35,20 +37,11 @@ class BorrarContacto extends Component{
     
     handleClose = () => {
         this.setState({open: false});
-        const url = `http://localhost:3000/deleteAllContact/`;
-                axios.delete(url)
-                .then(function(response)
-                {
-                    console.log(response);
-                })
-                .catch(function(error){
-                    console.log(error);
-                });
       };
 
     handleConfirm = () => {
         this.setState({open: false});
-        const url = `http://localhost:3000/deleteAllContact/`;
+        const url = `${BASEURL}/deleteAllContact/`;
                 axios.delete(url)
                 .then(function(response)
                 {
@@ -72,7 +65,7 @@ class BorrarContacto extends Component{
         this.props.form.validateFields(err => {
             if (!err) { 
                 const id = this.state.value
-                const url = `http://localhost:3000/contact/${id}`;
+                const url = `${BASEURL}/contact/${id}`;
                 axios.delete(url)
                 .then(function(response)
                 {
@@ -114,7 +107,6 @@ class BorrarContacto extends Component{
                         aria-labelledby="alert-dialog-title"
                         aria-describedby="alert-dialog-description"
                         onRequestClose={this.handleClose}
-
                     >
                         <DialogTitle id="alert-dialog-title">{"Are you sure?"}</DialogTitle>
                             <DialogContent>
@@ -131,9 +123,7 @@ class BorrarContacto extends Component{
                             </Button>
                             </DialogActions>
                         </Dialog>
-                        
                 </Form.Item>
-
             </div>
         );
     }

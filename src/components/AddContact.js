@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import 'antd/dist/antd.css';
 import { Input, Button, Form, InputNumber }  from 'antd';
 import axios from "axios";
+import { BASEURL } from './Constants';
 
 const formItemLayout = {
   labelCol: { span: 4 },
@@ -26,7 +27,7 @@ class CrearContacto extends Component{
       this.props.form.validateFields(err => {
         if (!err) {
           const { name, age, address, birthCountry, notes } = this.state;
-          axios.post('http://localhost:3000/contact', { name, age, address, birthCountry, notes })
+          axios.post(`${BASEURL}/contact`, { name, age, address, birthCountry, notes })
           .then(function(response)
           {
               console.log(response);
@@ -97,7 +98,6 @@ class CrearContacto extends Component{
 
               <Form.Item {...formItemLayout} label="Bourn Country">
                 {getFieldDecorator('birthCountry', {
-                  initialValue: 'Argentina',
                   rules: [
                   {
                     required: true,

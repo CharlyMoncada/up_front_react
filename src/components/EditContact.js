@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import axios from "axios";
 import 'antd/dist/antd.css';
 import { Input, Button, Form, Drawer, InputNumber }  from 'antd';
+import { BASEURL } from './Constants';
 
 const formItemLayout = {
     labelCol: { span: 4 },
@@ -45,7 +46,7 @@ class EditContact extends Component{
         this.props.form.validateFields( ['id'], err => {
             if (!err) { 
                 const id = this.state.id
-                const url = `http://localhost:3000/contact/${id}`;
+                const url = `${BASEURL}/contact/${id}`;
                 axios.get(url)
                 .then((response) => {
                     this.setState({
@@ -63,7 +64,9 @@ class EditContact extends Component{
     edit(event) {
         this.props.form.validateFields(err => {
             if (!err) { 
-                axios.put('http://localhost:3000/contact', {...this.state})
+                const { id, name, age, address, birthCountry, notes } = this.state;
+                const url = `${BASEURL}/contact/${id}`;
+                axios.patch(url, { name, age, address, birthCountry, notes})
         .then((response) => {
             console.log(response);
             this.setState({

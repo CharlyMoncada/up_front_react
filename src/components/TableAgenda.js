@@ -2,33 +2,8 @@ import { Table } from 'antd';
 import React, { Component } from 'react';
 import axios from "axios";
 import 'antd/dist/antd.css';
-
-const columns = [
-    {
-      title: 'Id',
-      dataIndex: 'id',
-    },
-    {
-      title: 'Name',
-      dataIndex: 'name',
-    },
-    {
-      title: 'Age',
-      dataIndex: 'age',
-    },
-    {
-      title: 'Address',
-      dataIndex: 'address',
-    },
-    {
-      title: 'Country of Birth',
-      dataIndex: 'birthCountry',
-    },
-    {
-      title: 'Notes',
-      dataIndex: 'notes',
-    }
-  ];
+import { BASEURL } from './Constants';
+import { COLUMNS } from './Constants';
 
 class TableAgenda extends Component{
 
@@ -39,7 +14,7 @@ class TableAgenda extends Component{
 
     async componentDidMount() {
         const itemToadd = this.state.postsInput
-        const {data} = await axios.get('http://localhost:3000/contacts', itemToadd);
+        const {data} = await axios.get(`${BASEURL}/contacts`, itemToadd);
         const currentState = this.state.postsItems
         this.setState({ 
           postsItems: currentState.concat(data.data),
@@ -51,7 +26,7 @@ class TableAgenda extends Component{
         return (
           <div>
              <br></br>
-                <Table columns={columns} dataSource={this.state.postsItems} size="middle" />
+                <Table columns={COLUMNS} dataSource={this.state.postsItems} size="middle" />
              <br></br>
           </div>
             );
